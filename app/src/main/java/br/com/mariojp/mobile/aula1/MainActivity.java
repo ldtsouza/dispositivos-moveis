@@ -4,6 +4,10 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.EditText;
+import android.widget.TextView;
+import android.widget.Toast;
 
 /**
  * Usando o Log para exibir no Logcat o ciclo de vida da Activity
@@ -12,6 +16,10 @@ import android.util.Log;
  *
  */
 public class MainActivity extends AppCompatActivity {
+
+    private TextView textView;
+
+    private EditText editText;
 
     /**
      * onCreate()
@@ -34,6 +42,10 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Log.d("Ciclo de Vida","Ciclo de Vida - onCreate");
+
+        textView = findViewById(R.id.main_label_texto);
+        editText = findViewById(R.id.main_input_texto);
+
 
     }
 
@@ -164,5 +176,19 @@ public class MainActivity extends AppCompatActivity {
         super.onRestart();
         Log.d("Ciclo de Vida","Ciclo de Vida - onRestart");
 
+    }
+
+    /**
+     * Metodo chamado pelo botao usuando a propriedade onclick
+     * android:onClick="alterar"
+     * @param view
+     */
+    public void alterar(View view) {
+        String texto = editText.getText().toString();
+        //Imprime o texto no Logcat
+        Log.d("Texto do EditText","Edit Text: "+texto);
+        //Toast Exibe uma mensagem na tela
+        Toast.makeText(this,"Texto: "+texto, Toast.LENGTH_LONG).show();
+        textView.setText(texto);
     }
 }
