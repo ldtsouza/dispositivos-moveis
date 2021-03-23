@@ -1,10 +1,15 @@
 package br.com.mariojp.mobile.aula1;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.ContextMenu;
+import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListAdapter;
 import android.widget.ListView;
@@ -22,7 +27,10 @@ import java.util.List;
  *
  */
 public class MainActivity extends AppCompatActivity {
+    public static ArrayList<Tarefa> tarefas = new ArrayList<Tarefa>();
 
+    private ListView lista;
+    private TarefaAdapter adapter;
     /**
      * onCreate()
      * Sua implementação é obrigatoria
@@ -49,8 +57,7 @@ public class MainActivity extends AppCompatActivity {
         //List<String> tarefas = new ArrayList<>(Arrays.asList("DEVER DE CASA", "ASSITIR AULA", "TOMAR BANHO",
         //        "LER UM LIVRO"));
         // ListAdapter adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1 , tarefas);
-
-        List<Tarefa> tarefas = new ArrayList<Tarefa>(
+       tarefas.addAll(
                 Arrays.asList(
                         new Tarefa("DEVER DE CASA","DESCRICAO !", 1),
                         new Tarefa("ASSITIR AULA", "DESCRICAO !", 2),
@@ -59,16 +66,70 @@ public class MainActivity extends AppCompatActivity {
                 )
                 );
 
-        ListView lista = findViewById(R.id.main_list_tarefas);
-        ListAdapter adapter = new TarefaAdapter(this, tarefas);
+        lista = findViewById(R.id.main_list_tarefas);
 
+
+        lista.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapter, View view, int posicao, long l) {
+                Tarefa tarefa = (Tarefa)adapter.getItemAtPosition(posicao);
+                Toast.makeText(MainActivity.this,
+                        "Item "+tarefa.getTitulo(),
+                        Toast.LENGTH_SHORT).show();
+                //Alterar
+                Intent intent = new Intent(MainActivity.this, FormActivity.class);
+                intent.putExtra("TAREFA",tarefa);
+                startActivity(intent);
+            }
+        });
+
+        lista.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> adapter, View view, int posicao, long l) {
+                Tarefa tarefa = (Tarefa)adapter.getItemAtPosition(posicao);
+                Toast.makeText(MainActivity.this,
+                        "Item Long"+tarefa.getTitulo(),
+                        Toast.LENGTH_SHORT).show();
+                //Excluir
+               return false;
+            }
+        });
+
+        registerForContextMenu(lista);
+
+    }
+
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        adapter = new TarefaAdapter(this, new ArrayList<>(tarefas));
         lista.setAdapter(adapter);
-
-
     }
 
     public void formulario(View view){
-        Toast.makeText(this,"Vai para o form", Toast.LENGTH_SHORT).show();
+        //Toast.makeText(this,"Vai para o form", Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(this, FormActivity.class);
+        startActivity(intent);
     }
 
+    @Override
+    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+        super.onCreateContextMenu(menu, v, menuInfo);
+        getMenuInflater().inflate(R.menu.menu_form,menu);
+    }
+
+    @Override
+    public boolean onContextItemSelected(@NonNull MenuItem item) {
+        AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
+        switch (item.getItemId()){
+            case R.id.menu_form_salvar:
+                Toast.makeText(this,
+                        this.adapter.getItem(info.position).getTitulo()
+                        ,Toast.LENGTH_SHORT).show();
+        }
+
+
+        return super.onContextItemSelected(item);
+    }
 }

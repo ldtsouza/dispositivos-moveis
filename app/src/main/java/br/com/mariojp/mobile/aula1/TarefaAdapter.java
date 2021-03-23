@@ -40,11 +40,13 @@ public class TarefaAdapter extends BaseAdapter {
         if(view == null ) {
             view = LayoutInflater.from(contexto).inflate(R.layout.tarefa_list_item, parent, false);
         }
+
         TextView titulo = view.findViewById(R.id.list_tarefa_titulo);
         TextView descricao = view.findViewById(R.id.list_tarefa_descricao);
         TextView prioridade = view.findViewById(R.id.list_tarefa_prioridade);
 
         Tarefa tarefa = getItem(posicao);
+
         titulo.setText(tarefa.getTitulo());
         descricao.setText(tarefa.getDescricao());
         prioridade.setText(tarefa.getPrioridade()+"");
