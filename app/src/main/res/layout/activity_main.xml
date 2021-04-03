@@ -11,7 +11,7 @@
     <TextView
         android:id="@+id/main_label_principal"
         android:layout_width="137dp"
-        android:layout_height="37dp"
+        android:layout_height="wrap_content"
         android:accessibilityLiveRegion="polite"
         android:lineSpacingExtra="8sp"
         android:rotationX="0"
