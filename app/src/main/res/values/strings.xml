@@ -2,4 +2,7 @@
     <string name="app_name">ADS</string>
     <string name="lau_linda">Lau Linda!</string>
     <string name="alterar">Alterar</string>
+    <string name="ola_enfermeira">olá,enfermeira</string>
+    <string name="salvar">Salvar</string>
+    <string name="todo">TODO</string>
 </resources>

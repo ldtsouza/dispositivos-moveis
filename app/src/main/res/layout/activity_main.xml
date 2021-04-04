@@ -15,12 +15,10 @@
         android:accessibilityLiveRegion="polite"
         android:lineSpacingExtra="8sp"
         android:rotationX="0"
-        android:text="olá,enfermeira"
+        android:text="@string/ola_enfermeira"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         android:visibility="visible"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        tools:layout_editor_absoluteX="128dp"
         tools:text="?android:attr/candidatesTextStyleSpans"
         tools:visibility="visible" />
 
@@ -29,23 +27,36 @@
         android:layout_width="139dp"
         android:layout_height="77dp"
         android:onClick="metodo"
-        android:text="Salvar"
+        android:text="@string/salvar"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/main_label_principal" />
 
     <EditText
-        android:id="@+id/main_input_name"
-        android:layout_width="268dp"
-        android:layout_height="41dp"
-        android:layout_marginBottom="96dp"
+        android:id="@+id/EditText"
+        android:layout_width="361dp"
+        android:layout_height="wrap_content"
         android:autofillHints=""
         android:ems="10"
         android:inputType="textPersonName"
         app:layout_constraintBottom_toTopOf="@+id/button"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout_editor_absoluteX="16dp" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/main_botao_segunda"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:contentDescription="@string/todo"
+        android:focusable="true"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.417"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button"
+        app:srcCompat="@android:drawable/ic_menu_add"
+        tools:visibility="visible" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
